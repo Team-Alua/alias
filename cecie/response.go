@@ -39,3 +39,11 @@ func newResponseOkay() []byte {
 	return append(r, []byte("\r\n")...)
 }
 
+func newResponseInvalid(code string) []byte {
+	var c ClientResponse
+	c.Type = ResponseInvalid
+	c.ErrorCode = code
+	r, _ := json.Marshal(c)
+	return append(r, []byte("\r\n")...)
+}
+

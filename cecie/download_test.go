@@ -7,7 +7,6 @@ import (
 	"bytes"
 )
 
-
 func mockDownload(server net.Conn, data []byte) {
 	go func() {
 		defer server.Close()

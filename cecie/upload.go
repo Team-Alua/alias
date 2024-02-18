@@ -24,6 +24,7 @@ func NewUploadRequest(targetFile string, size int64) *UploadRequest {
 	var det UploadDetails
 	det.TargetFile = targetFile
 	det.Size = size
+	req.Details = det
 	
 	return &req
 }
