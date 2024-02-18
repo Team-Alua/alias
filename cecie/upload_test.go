@@ -7,7 +7,6 @@ import (
 	"bufio"
 	"bytes"
 	"io"
-	"time"
 	"fmt"
 )
 
@@ -114,6 +113,24 @@ func TestLargeUpload(t *testing.T) {
 
 	if !testEq(data, expected) {
 		t.Fatalf("expected length: %d got: %d", len(expected), len(data))
+	}
+}
+
+func TestUploadRequest(t *testing.T) {
+	remote := "f"
+	size := int64(50)
+	req := NewUploadRequest(remote, size)
+
+	if req.Type != UploadFile {
+		t.Fatalf("request type is not download")
+	}
+
+	if req.Details.TargetFile != remote {
+		t.Fatalf("target does not match")
+	}
+
+	if req.Details.Size != size {
+		t.Fatalf("size does not match")
 	}
 }
 

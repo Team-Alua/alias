@@ -76,3 +76,15 @@ func TestLargeDownload(t *testing.T) {
 	}
 }
 
+func TestDownloadRequest(t *testing.T) {
+	remote := "f"
+	req := NewDownloadRequest(remote)
+
+	if req.Type != DownloadFile {
+		t.Fatalf("request type is not download")
+	}
+
+	if req.Details.Source != remote {
+		t.Fatalf("source does not match")
+	}
+}
