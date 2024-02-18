@@ -5,13 +5,6 @@ import (
 	"errors"
 )
 
-type ClientResponse struct {
-	Type ResponseType `json:"ResponseType"`
-	KeySet int32 `json:"keyset,omitempty"`
-	ErrorCode string `json:"code,omitempty"`
-	Json string `json:"json,omitempty"`
-}
-
 func (c *Client) recvMsg() ([]byte, error) {
 	s, err := c.r.ReadBytes('\n')
 	if err != nil {
@@ -33,7 +26,7 @@ func (c *Client) recvReply() (*ClientResponse, error) {
 
 	var res ClientResponse
 
-	if err := json.Unmarshal(s, res); err != nil {
+	if err := json.Unmarshal(s, &res); err != nil {
 		return nil, err
 	}
 
@@ -50,7 +43,7 @@ func (c *Client) expectResp(resp *ClientResponse, expected ResponseType) error {
 		return errors.New("Error " + resp.ErrorCode)
 	}
 
-	return errors.New("Unexpected " + string(actual))
+	return errors.New("expected: " + string(expected) + " got: " + string(actual))
 }
 
 func (c *Client) recvOkay() error {

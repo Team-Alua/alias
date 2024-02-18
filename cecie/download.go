@@ -47,8 +47,8 @@ func (c *Client) DownloadFile(remote string, w io.Writer) error {
 		}
 	}
 
-	rem := dr.Size - int64(buffered)
-	if _, err := io.CopyN(w, c.conn, rem); err != nil {
+	dr.Size -= int64(buffered)
+	if _, err := io.CopyN(w, c.conn, dr.Size); err != nil {
 		return err
 	}
 

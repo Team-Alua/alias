@@ -1,6 +1,6 @@
 package cecie
 
-func testEq(a, b []byte) bool {
+func testEq[T comparable](a, b []T) bool {
 	if len(a) != len(b) {
 		return false
 	}
